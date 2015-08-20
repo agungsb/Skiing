@@ -70,14 +70,6 @@ public class Main {
             }
 //            System.out.println();
         }
-
-//        int x = 751;
-//        int y = 498;
-//        int x = 1;
-//        int y = 2;
-//        int x = 2;
-//        int y = 3;
-//        Prediction prediction = new Prediction(grid, x, y, gridX, gridY);
         
         System.out.println("\nMap size: " + gridX + " x " + gridY);
         System.out.println(steepest);
