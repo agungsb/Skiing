@@ -60,55 +60,48 @@ public class Prediction {
     private void compare(ArrayList<ArrayList<Integer>> length, int x, int y) {
         ArrayList<ArrayList<Integer>> localLength = new ArrayList<>();
         localLength = (ArrayList<ArrayList<Integer>>) length.clone();
-        ArrayList<Integer> localPath = new ArrayList<>();
-        int initLength = length.size();
-//        System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y]);
-        boolean hasLeft = false, hasRight = false, hasBottom = false;
+        ArrayList<Integer> leftPath = new ArrayList<>();
+        ArrayList<Integer> rightPath = new ArrayList<>();
+        ArrayList<Integer> bottomPath = new ArrayList<>();
         if (left(x, y) == 1) {
-            localPath.clear();
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has left. Now let's do the recursive on this: " + x + " - " + (y - 1));
+//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has left. Now let's do the recursive on grid[" + x + "][" + (y - 1) + "]: " + grid[x][y-1]);
             for (Integer ii : localLength.get(localLength.size() - 1)) {
 //                System.out.println(ii);
-                localPath.add(ii);
+                leftPath.add(ii);
             }
-            localPath.add(grid[x][y - 1]);
+            leftPath.add(grid[x][y - 1]);
 //            System.out.println(localPath.toString());
-            length.add(localPath);
+            length.add(leftPath);
 //            System.out.println(length.toString());
             compare(length, x, y - 1);
-            hasLeft = true;
         } else {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have left");
         }
         if (right(x, y) == 1) {
-            localPath.clear();
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has right. Now let's do the recursive on this: " + x + " - " + (y + 1));
+//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has right. Now let's do the recursive on grid[" + x + "][" + (y + 1) + "]: " + grid[x][y+1]);
             for (Integer ii : localLength.get(localLength.size() - 1)) {
 //                System.out.println(ii);
-                localPath.add(ii);
+                rightPath.add(ii);
             }
-            localPath.add(grid[x][y + 1]);
+            rightPath.add(grid[x][y + 1]);
 //            System.out.println(localPath.toString());
-            length.add(localPath);
+            length.add(rightPath);
 //            System.out.println(length.toString());
             compare(length, x, (y + 1));
-            hasRight = true;
         } else {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have right");
         }
         if (bottom(x, y) == 1) {
-            localPath.clear();
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has bottom. Now let's do the recursive on this: " + (x + 1) + " - " + y);
+//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has bottom. Now let's do the recursive on grid[" + (x+1) + "][" + y + "]: " + grid[x+1][y]);
             for (Integer ii : localLength.get(localLength.size() - 1)) {
 //                System.out.println(ii);
-                localPath.add(ii);
+                bottomPath.add(ii);
             }
-            localPath.add(grid[x + 1][y]);
+            bottomPath.add(grid[x + 1][y]);
 //            System.out.println(localPath.toString());
-            length.add(localPath);
+            length.add(bottomPath);
 //            System.out.println(length.toString());
             compare(length, x + 1, y);
-            hasBottom = true;
         } else {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have bottom");
         }

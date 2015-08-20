@@ -5,13 +5,7 @@
  */
 package skiing;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,9 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Skiing skiing = new Skiing();
-//        skiing.readFile("skiing_map.txt");
-        skiing.readFile("skiing_map.txt");
-//        System.out.println(skiing.getText());
+        skiing.readFile("skiing_map_example.txt");
         String[] exp;
         int[][] grid;
         exp = skiing.getText().split("\\s+");
@@ -56,44 +48,42 @@ public class Main {
         ArrayList<Integer> steepest = new ArrayList<>(); // Hasil akhir
         steepest.add(0);
 
+        int mostX = 0, mostY = 0;
+
         for (int x = 0; x < gridX; x++) {
             for (int y = 0; y < gridY; y++) {
-//                skiing.compare(grid, grid[x][y], x, y, gridX, gridY);
                 Prediction prediction = new Prediction(grid, x, y, gridX, gridY);
-                System.out.println("Prediction: " + prediction.getSteepest());
+                System.out.println("Longest path on ["+x+"]["+y+"] -> " + prediction.getSteepest());
                 if (steepest.size() < prediction.getSteepest().size()) {
                     steepest = prediction.getSteepest();
+                    mostX = x;
+                    mostY = y;
                 } else if (steepest.size() == prediction.getSteepest().size()) {
                     int iiSize = prediction.getSteepest().get(0) - prediction.getSteepest().get(prediction.getSteepest().size() - 1);
                     int steepestSize = steepest.get(0) - steepest.get(steepest.size() - 1);
                     if (steepestSize < iiSize) {
                         steepest = prediction.getSteepest();
+                        mostX = x;
+                        mostY = y;
                     }
                 }
             }
 //            System.out.println();
         }
-        System.out.println(steepest);
-        System.out.println("Length: " + steepest.size());
-        System.out.println("Distance: " + (steepest.get(0) - steepest.get(steepest.size() - 1)));
-        int x = 0;
-        int y = 3;
+
+//        int x = 751;
+//        int y = 498;
+//        int x = 1;
+//        int y = 2;
 //        int x = 2;
 //        int y = 3;
-//        int x = 2;
-//        int y = 0;
-//        Metode metode = new Metode(grid, x, y, gridX, gridY);
-//        Predict predict = new Predict(grid, x, y, gridX, gridY);
 //        Prediction prediction = new Prediction(grid, x, y, gridX, gridY);
-//        System.out.println("Prediction: " + prediction.getSteepest());
-//        Methods method = new Methods(grid, grid[x][y], x, y, gridX, gridY);
-//        method.recursive();
-//        System.out.println("Start: " + grid[x][y]);
-//        skiing.compare(grid, grid[x][y], x, y, gridX, gridY);
-//        skiing.compare(grid, grid[1][1], 1, 1, gridX, gridY);
-//        skiing.compare(grid, grid[2][1], 2, 1, gridX, gridY);
-//        skiing.compare(grid, grid[2][2], 2, 2, gridX, gridY);
-//        skiing.compare(grid, grid[3][1], 3, 1, gridX, gridY);
+        
+        System.out.println("\nMap size: " + gridX + " x " + gridY);
+        System.out.println(steepest);
+        System.out.println("Starting point: x=" + mostX + ", y=" + mostY);
+        System.out.println("Length: " + steepest.size());
+        System.out.println("Drop: " + (steepest.get(0) - steepest.get(steepest.size() - 1)));
     }
 
 }
