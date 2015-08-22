@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Skiing skiing = new Skiing();
-        skiing.readFile("skiing_map_example.txt");
+        skiing.readFile("skiing_map.txt");
         String[] exp;
         int[][] grid;
         exp = skiing.getText().split("\\s+");
