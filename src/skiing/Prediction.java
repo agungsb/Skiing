@@ -33,7 +33,7 @@ public class Prediction {
         compare(bp, x, y);
 //        System.out.println("Finished: " + bp.toString());
         steepest = bp.get(0);
-        for (ArrayList<Integer> ii : bp) {
+        bp.stream().forEach((ii) -> {
             if (steepest.size() < ii.size()) {
                 steepest = ii;
             } else if (steepest.size() == ii.size()) {
@@ -43,9 +43,7 @@ public class Prediction {
                     steepest = ii;
                 }
             }
-//            System.out.println(ii + " -> Length: " + ii.size() + ", Distance: " + (ii.get(0) - ii.get(ii.size() - 1)));
-        }
-//        System.out.println(steepest);
+        });
     }
 
     public ArrayList<Integer> getSteepest() {
@@ -53,17 +51,16 @@ public class Prediction {
     }
 
     private void compare(ArrayList<ArrayList<Integer>> length, int x, int y) {
-        ArrayList<ArrayList<Integer>> localLength = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> localLength;
         localLength = (ArrayList<ArrayList<Integer>>) length.clone();
         ArrayList<Integer> leftPath = new ArrayList<>();
         ArrayList<Integer> rightPath = new ArrayList<>();
         ArrayList<Integer> bottomPath = new ArrayList<>();
+        ArrayList<Integer> topPath = new ArrayList<>();
         if (left(x, y) == 1) {
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has left. Now let's do the recursive on grid[" + x + "][" + (y - 1) + "]: " + grid[x][y-1]);
-            for (Integer ii : localLength.get(localLength.size() - 1)) {
-//                System.out.println(ii);
+            localLength.get(localLength.size() - 1).stream().forEach((ii) -> {
                 leftPath.add(ii);
-            }
+            });
             leftPath.add(grid[x][y - 1]);
 //            System.out.println(localPath.toString());
             length.add(leftPath);
@@ -73,11 +70,9 @@ public class Prediction {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have left");
         }
         if (right(x, y) == 1) {
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has right. Now let's do the recursive on grid[" + x + "][" + (y + 1) + "]: " + grid[x][y+1]);
-            for (Integer ii : localLength.get(localLength.size() - 1)) {
-//                System.out.println(ii);
+            localLength.get(localLength.size() - 1).stream().forEach((ii) -> {
                 rightPath.add(ii);
-            }
+            });
             rightPath.add(grid[x][y + 1]);
 //            System.out.println(localPath.toString());
             length.add(rightPath);
@@ -87,16 +82,29 @@ public class Prediction {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have right");
         }
         if (bottom(x, y) == 1) {
-//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has bottom. Now let's do the recursive on grid[" + (x+1) + "][" + y + "]: " + grid[x+1][y]);
-            for (Integer ii : localLength.get(localLength.size() - 1)) {
-//                System.out.println(ii);
+//            for (Integer ii : localLength.get(localLength.size() - 1)) {
+            localLength.get(localLength.size() - 1).stream().forEach((ii) -> {
                 bottomPath.add(ii);
-            }
+            });
             bottomPath.add(grid[x + 1][y]);
 //            System.out.println(localPath.toString());
             length.add(bottomPath);
 //            System.out.println(length.toString());
             compare(length, x + 1, y);
+        } else {
+//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have bottom");
+        }
+        if (top(x, y) == 1) {
+//            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " has bottom. Now let's do the recursive on grid[" + (x+1) + "][" + y + "]: " + grid[x+1][y]);
+            localLength.get(localLength.size() - 1).stream().forEach((ii) -> {
+//                System.out.println(ii);
+                topPath.add(ii);
+            });
+            topPath.add(grid[x - 1][y]);
+//            System.out.println(localPath.toString());
+            length.add(topPath);
+//            System.out.println(length.toString());
+            compare(length, x - 1, y);
         } else {
 //            System.out.println("grid[" + x + "][" + y + "]: " + grid[x][y] + " doesn't have bottom");
         }
@@ -128,6 +136,16 @@ public class Prediction {
         int result = 0;
         if (x < (gridX - 1)) {
             if (grid[x][y] > grid[x + 1][y]) {
+                result = 1;
+            }
+        }
+        return result;
+    }
+    
+    public int top(int x, int y){
+        int result = 0;
+        if (x > 0) {
+            if (grid[x][y] > grid[x - 1][y]) {
                 result = 1;
             }
         }
