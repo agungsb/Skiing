@@ -69,7 +69,6 @@ public class Main {
 //                    System.out.println("Longest path on ["+x+"]["+y+"] -> " + steepest + ", Drop: " + (steepest.get(0) - steepest.get(steepest.size() - 1)) + ", Length: " + steepest.size());
                 }
             }
-//            System.out.println(grid[x][0] + "..." + grid[x][999]);
         }
 
         System.out.println("\nMap size: " + gridX + " x " + gridY);
