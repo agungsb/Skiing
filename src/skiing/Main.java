@@ -12,7 +12,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
         Skiing skiing = new Skiing();
         skiing.readFile("skiing_map.txt");
         String[] exp;
@@ -68,16 +67,11 @@ public class Main {
                 }
             }
         }
-
-        System.out.println("\nMap size: " + gridX + " x " + gridY);
         System.out.println(steepest);
         System.out.println("Starting point: x=" + startX + ", y=" + startY);
         System.out.println("Length: " + steepest.size());
         System.out.println("Drop: " + (steepest.get(0) - steepest.get(steepest.size() - 1)));
         String email = steepest.size() + "" + (steepest.get(0) - steepest.get(steepest.size() - 1) + "@redmart.com");
         System.out.println("E-mail: " + email);
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time taken to compute path: " + ((endTime - startTime) / 1000) + "s");
     }
-
 }
