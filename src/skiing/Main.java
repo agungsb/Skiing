@@ -44,9 +44,7 @@ public class Main {
         ArrayList<Integer> steepest = new ArrayList<>(); // Hasil akhir
         steepest.add(0);
 
-        int startX = 0, startY = 0, finishX = 0, finishY = 0;
-//        int x = 693; int y = 603; 
-//        int x = 689; int y = 607;
+        int startX = 0, startY = 0;
 
 //        System.out.println(grid[x][y]);
         for (int x = 0; x < gridX; x++) {
@@ -69,7 +67,6 @@ public class Main {
 //                    System.out.println("Longest path on ["+x+"]["+y+"] -> " + steepest + ", Drop: " + (steepest.get(0) - steepest.get(steepest.size() - 1)) + ", Length: " + steepest.size());
                 }
             }
-//            System.out.println(grid[x][0] + "..." + grid[x][999]);
         }
 
         System.out.println("\nMap size: " + gridX + " x " + gridY);
